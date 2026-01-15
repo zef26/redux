@@ -1,7 +1,12 @@
-import React from 'react'
+import { Component } from "react";
+import { connect   } from "react-redux";
+import * as actions  from "../action"
+// import { bindActionCreators } from "redux"; 
 
-const Counter = ({counter, inc, dec, rnd}) => {
-  return (
+class Counter extends Component{
+  render () {
+    const {counter, inc, dec, rnd} = this.props
+ return (
     <div  className="jumbotron">
       <h1 id="counter">{counter}</h1>
       <button  onClick={dec}  className="btn btn-primary">DEC</button>
@@ -9,6 +14,18 @@ const Counter = ({counter, inc, dec, rnd}) => {
       <button onClick={rnd}  className="btn btn-primary">RND</button>
     </div>
   )
+  }
+}  
+ 
+
+const mapStateToProps = (state) => {
+  return {
+    counter: state.value
+  }
 }
 
-export default Counter;
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators(actions, dispatch) 
+// }
+
+export default connect(mapStateToProps, actions)(Counter);
